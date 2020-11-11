@@ -7,13 +7,13 @@
   "author": "Pranjal Alone <pranjalalone@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "deploy": "npm build && node index.js",
+    "deploy": "npm run build && node index.js",
     "dev": "parcel serve src/index.html --open",
     "build": "rm -rf build/ && parcel build src/index.html -d build/"
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm deploy"
+      "pre-push": "npm run deploy"
     }
   },
   "devDependencies": {
