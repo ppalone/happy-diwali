@@ -9,7 +9,7 @@
   "scripts": {
     "deploy": "npm run build && node index.js",
     "dev": "parcel serve src/index.html --open",
-    "build": "rm -rf build/ && parcel build src/index.html -d build/"
+    "build": "rm -rf build/ && parcel build src/index.html -d build/ --public-url ./"
   },
   "husky": {
     "hooks": {
