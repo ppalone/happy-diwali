@@ -6,12 +6,12 @@ canvas.height = window.innerHeight;
 let WIDTH = window.innerWidth;
 let HEIGHT = window.innerHeight;
 
-const ctx = canvas.getContext('2d', { alpha: false });
+const ctx = canvas.getContext('2d');
 
 const fireworks = [];
 const particles = [];
 
-const GRAVITY = 0.006;
+const GRAVITY = 0.0065;
 
 console.log(
   "Wishing you a very Happy & Prosperous Diwali 🎉, Don't forget to leave a star ⭐ at https://github.com/ppalone/happy-diwali"
@@ -70,7 +70,7 @@ class Particle {
   }
 
   draw() {
-    ctx.save();
+    // ctx.save();
     ctx.globalAlpha = this.alpha < 0 ? 0 : this.alpha;
     ctx.beginPath();
     ctx.arc(this.x, this.y, 2, 0, Math.PI * 2, false);
@@ -78,7 +78,7 @@ class Particle {
     ctx.strokeStyle = 'transparent';
     ctx.fill();
     ctx.stroke();
-    ctx.restore();
+    // ctx.restore();
   }
 
   update() {
@@ -140,7 +140,7 @@ function init() {
     new Firework(
       pos.x,
       pos.y,
-      `hsl(${Math.floor(Math.random() * 360)},50%, 50%)`,
+      `hsl(${Math.floor(Math.random() * 360)}, 50%, 50%)`,
       speed
     )
   );
