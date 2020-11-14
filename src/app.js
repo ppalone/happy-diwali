@@ -11,16 +11,18 @@ const ctx = canvas.getContext('2d');
 const fireworks = [];
 const particles = [];
 
-const GRAVITY = 0.005;
-const FRICTION = 0.999;
+const GRAVITY = 0.0005;
+// const FRICTION = 0.99;
+
+const colors = ['cyan', 'yellow', 'orange', 'white', 'lime'];
 
 class Firework {
-  constructor(fx, fy, color) {
+  constructor(fx, fy, color, speed) {
     this.x = fx;
     this.y = HEIGHT;
     this.fx = fx;
     this.fy = fy;
-    this.speed = 5;
+    this.speed = speed;
     this.blown = false;
     this.color = color;
   }
@@ -28,10 +30,6 @@ class Firework {
   update() {
     this.draw();
     if (this.y < this.fy) {
-      // console.log(this.y, this.fy);
-      this.blown = true;
-
-      // Generate Particles
       const PARTICLE_COUNT = 200;
       const ANGLE = (Math.PI * 2) / PARTICLE_COUNT;
 
@@ -43,15 +41,13 @@ class Firework {
           })
         );
       }
+      this.blown = true;
     } else {
       this.y -= this.speed;
     }
-    // return this.blown;
-    // console.log(this.y);
   }
 
   draw() {
-    // ctx.globalAlpha = 1;
     ctx.fillStyle = this.color;
     ctx.fill();
     ctx.fillRect(this.x - 1, this.y, 2, 4);
@@ -80,9 +76,7 @@ class Particle {
   }
 
   update() {
-    this.velocity.x *= FRICTION;
     this.velocity.y += GRAVITY;
-
     this.x += this.velocity.x;
     this.y += this.velocity.y;
     this.alpha -= 0.005;
@@ -91,8 +85,7 @@ class Particle {
 }
 
 function animate() {
-  // ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.50)';
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
   fireworks.forEach((firework, idx) => {
@@ -104,7 +97,7 @@ function animate() {
   });
 
   particles.forEach((particle, idx) => {
-    if (particle.alpha < 0) {
+    if (particle.alpha <= 0) {
       particles.splice(idx, 1);
     } else {
       particle.update();
@@ -117,42 +110,12 @@ function animate() {
 animate();
 
 setInterval(function () {
-  let pos = { x: Math.random() * WIDTH, y: (Math.random() * HEIGHT) / 2 };
-  let color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${
-    Math.random() * 255
-  })`;
-  // const PARTICLE_COUNT = 200;
-  // const ANGLE = (Math.PI * 2) / PARTICLE_COUNT;
-
-  // for (let i = 0; i < PARTICLE_COUNT; i++) {
-  //   particles.push(
-  //     new Particle(pos.x, pos.y, color, {
-  //       x: Math.cos(ANGLE * i) * Math.random(),
-  //       y: Math.sin(ANGLE * i) * Math.random(),
-  //     })
-  //   );
-  // }
-
-  fireworks.push(new Firework(pos.x, pos.y, color));
+  let pos = {
+    x: 30 + Math.random() * (WIDTH - 30 * 2),
+    y: 30 + Math.random() * (HEIGHT / 2),
+  };
+  let color = colors[Math.floor(Math.random() * colors.length)];
+  let speed = 4 + Math.random() * 4;
+  fireworks.push(new Firework(pos.x, pos.y, color, speed));
   console.log(fireworks);
-}, 2000);
-
-// particles.push(new Particle(Math.random() * WIDTH, Math.random() * HEIGHT / 2, 'white'));
-
-// TEST
-// let pos = { x: Math.random() * WIDTH, y: (Math.random() * HEIGHT) / 1.5 };
-
-// const PARTICLE_COUNT = 200;
-// const ANGLE = (Math.PI * 2) / PARTICLE_COUNT;
-
-// for (let i = 0; i < PARTICLE_COUNT; i++) {
-//   particles.push(
-//     new Particle(pos.x, pos.y, 'white', {
-//       x: Math.cos(ANGLE * i) * Math.random(),
-//       y: Math.sin(ANGLE * i) * Math.random(),
-//     })
-//   );
-// }
-
-// let pos = { x: Math.random() * WIDTH, y: (Math.random() * HEIGHT) / 2 };
-// fireworks.push(new Firework(pos.x, pos.y));
+}, 1000);
