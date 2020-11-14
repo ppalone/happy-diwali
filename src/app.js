@@ -6,13 +6,12 @@ canvas.height = window.innerHeight;
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d', { alpha: false });
 
 const fireworks = [];
 const particles = [];
 
-const GRAVITY = 0.0005;
-// const FRICTION = 0.99;
+const GRAVITY = 0.005;
 
 const colors = ['cyan', 'yellow', 'orange', 'white', 'lime'];
 
@@ -35,7 +34,7 @@ class Firework {
 
       for (let i = 0; i < PARTICLE_COUNT; i++) {
         particles.push(
-          new Particle(this.x, this.y, this.color, {
+          new Particle(this.fx, this.fy, this.color, {
             x: Math.cos(ANGLE * i) * Math.random(),
             y: Math.sin(ANGLE * i) * Math.random(),
           })
@@ -95,15 +94,14 @@ function animate() {
       firework.update();
     }
   });
-
-  particles.forEach((particle, idx) => {
-    if (particle.alpha <= 0) {
-      particles.splice(idx, 1);
-    } else {
-      particle.update();
-    }
-  });
-
+  particles.length > 0 &&
+    particles.forEach((particle, idx) => {
+      if (particle.alpha <= 0) {
+        particles.splice(idx, 1);
+      } else {
+        particle.update();
+      }
+    });
   requestAnimationFrame(animate);
 }
 
@@ -111,11 +109,10 @@ animate();
 
 setInterval(function () {
   let pos = {
-    x: 30 + Math.random() * (WIDTH - 30 * 2),
-    y: 30 + Math.random() * (HEIGHT / 2),
+    x: 30 + Math.floor(Math.random() * (WIDTH - 30 * 2)),
+    y: 30 + Math.floor(Math.random() * (HEIGHT / 1.5)),
   };
   let color = colors[Math.floor(Math.random() * colors.length)];
-  let speed = 4 + Math.random() * 4;
+  let speed = 4 + Math.floor(Math.random() * 4);
   fireworks.push(new Firework(pos.x, pos.y, color, speed));
-  console.log(fireworks);
-}, 1000);
+}, 2000);
