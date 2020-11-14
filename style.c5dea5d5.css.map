@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,EACE,qBAAsB,CACtB,SAAU,CACV,QACF,CAEA,QACE,aAAc,CACd,gCACF","file":"style.c5dea5d5.css","sourceRoot":"../src","sourcesContent":["* {\n  box-sizing: border-box;\n  padding: 0;\n  margin: 0;\n}\n\n#canvas {\n  display: block;\n  background-color: rgba(0, 0, 0, 0.25);\n}\n"]}
