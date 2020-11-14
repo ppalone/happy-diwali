@@ -102,6 +102,7 @@ function animate() {
         particle.update();
       }
     });
+
   requestAnimationFrame(animate);
 }
 
@@ -110,7 +111,7 @@ animate();
 setInterval(function () {
   let pos = {
     x: 30 + Math.floor(Math.random() * (WIDTH - 30 * 2)),
-    y: 30 + Math.floor(Math.random() * (HEIGHT / 1.5)),
+    y: 30 + Math.floor(Math.random() * (HEIGHT / 2)),
   };
   let color = colors[Math.floor(Math.random() * colors.length)];
   let speed = 4 + Math.floor(Math.random() * 4);
