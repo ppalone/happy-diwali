@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
 
+:root {
+  --platform: 80px;
+  --diva-height: 60px;
+  --diva-width: 120px;
+  --flame-width: 20px;
+  --flame-height: 40px;
+}
+
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -12,7 +20,11 @@ html {
 }
 
 #canvas {
+  position: absolute;
+  z-index: -1;
   display: block;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.25);
 }
 
@@ -32,7 +44,7 @@ html {
 }
 
 .container .diwali {
-  margin-top: 10%;
+  padding-top: 10%;
   color: white;
 }
 
@@ -41,6 +53,62 @@ html {
   visibility: hidden;
   -webkit-animation: fade-in 2s linear 2s forwards;
   animation: fade-in 2s linear 2s forwards;
+}
+
+.main {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.light {
+  position: relative;
+  width: var(--diva-width);
+  height: var(--diva-height);
+  background-color: rgb(246, 102, 36);
+  border-bottom-left-radius: var(--diva-height);
+  border-bottom-right-radius: var(--diva-height);
+}
+
+.light:after {
+  content: '';
+  position: absolute;
+  width: var(--flame-width);
+  height: var(--flame-height);
+  background-color: white;
+  top: calc(-50% - var(--flame-height) / 4);
+  left: calc(50% - var(--flame-width) / 2);
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 4px 2px rgb(214, 107, 58);
+  box-shadow: 0px 0px 4px 2px rgb(214, 107, 58);
+  -webkit-animation: air 2ms infinite;
+  animation: air 2ms infinite;
+}
+
+.platform {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: var(--platform);
+  background-color: rgb(223, 115, 88);
 }
 
 @-webkit-keyframes fade-in {
@@ -60,6 +128,40 @@ html {
   to {
     opacity: 1;
     visibility: visible;
+  }
+}
+
+@-webkit-keyframes air {
+  0%,
+  50%,
+  100% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  25% {
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
+  }
+  75% {
+    -webkit-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes air {
+  0%,
+  50%,
+  100% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  25% {
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
+  }
+  75% {
+    -webkit-transform: rotate(-2deg);
+    transform: rotate(-2deg);
   }
 }
 
