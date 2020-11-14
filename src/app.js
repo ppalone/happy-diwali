@@ -70,7 +70,7 @@ class Particle {
   }
 
   draw() {
-    // ctx.save();
+    ctx.save();
     ctx.globalAlpha = this.alpha < 0 ? 0 : this.alpha;
     ctx.beginPath();
     ctx.arc(this.x, this.y, 2, 0, Math.PI * 2, false);
@@ -78,7 +78,7 @@ class Particle {
     ctx.strokeStyle = 'transparent';
     ctx.fill();
     ctx.stroke();
-    // ctx.restore();
+    ctx.restore();
   }
 
   update() {
